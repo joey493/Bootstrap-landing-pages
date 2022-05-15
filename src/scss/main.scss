@@ -1,0 +1,177 @@
+// import the functions and variables
+@import '../../node_modules/bootstrap/scss/functions';
+@import '../../node_modules/bootstrap/scss/variables';
+
+// custom fonts
+$font-family-base: 'Rubik', sans-serif;
+
+// custom colors
+$custom-theme-colors: (
+  'soft-blue': hsl(231, 69%, 60%),
+  'soft-red': hsl(0, 94%, 66%),
+  'grayish-blue': hsl(229, 8%, 60%),
+  'very-grayish-blue': hsl(229, 31%, 21%) 
+);
+
+$theme-colors: map-merge($theme-colors, $custom-theme-colors);
+$theme-colors-rgb: map-loop($theme-colors, to-rgb, '$value');
+$utilities-colors: map-merge($utilities-colors, $theme-colors-rgb);
+$utilities-text-colors: map-loop($utilities-colors, rgba-css-var, "$key", "text");
+$utilities-bg-colors: map-loop($utilities-colors, rgba-css-var, "$key", "bg");
+
+$body-color: map-get($theme-colors, 'very-grayish-blue');
+
+@import '../../node_modules/bootstrap/scss/bootstrap.scss';
+
+
+// header
+.navbar {
+  .navbar-toggler{
+    border: none;
+  
+    &:active, &:focus {
+      outline: none;
+      box-shadow: none;
+    }
+  }
+
+  .nav-item .nav-link{
+    color: map-get($theme-colors, 'very-grayish-blue');
+    &:hover,
+    &:focus {
+      color: map-get($theme-colors, 'soft-red');
+    }
+  }
+}
+
+// hero section
+.hero {
+  p {
+    @include media-breakpoint-up(md) {
+      width: 75%;
+    }
+  }
+}
+
+section header p {
+  @include media-breakpoint-up(md) {
+    width: 50%;
+  }
+}
+
+.features {
+  header p {
+    @include media-breakpoint-up(md) {
+      width: 50%;
+    }
+  }
+  nav {
+    width: fit-content;
+    margin-inline: auto;
+    span {
+      cursor: pointer;
+      &:hover, &:focus {
+        color: map-get($theme-colors, 'soft-red') !important;
+      }
+    }
+    .active {
+      position: relative;
+      &::before {
+        content: '';
+        position: absolute;
+        bottom: -1px;
+        left: 0;
+        z-index: 2;
+        width: 100%;
+        height: 4px;
+        background-color: map-get($theme-colors, 'soft-red');
+      }
+    }
+  }
+}
+
+// extention
+.extention {
+  min-height: 40rem;
+  img:first-child {
+    margin-inline: auto;
+    width: 100px;
+    height: 100px;
+  }
+
+  .row {
+    gap: 1.5rem;
+  }
+  .card {
+    @include media-breakpoint-up('md') {
+      &:nth-child(2) {
+        transform: translateY(3rem);
+      }
+      &:last-child {
+        transform: translateY(6rem);
+      }
+    }
+  }
+  .card-body {
+    overflow: hidden;
+    img {
+      width: 120%;
+      left: -2rem;
+    }
+  }
+}
+
+
+// FAQ
+.FAQ {
+  .accordion-item {
+    max-width: 33rem;
+    margin-inline: auto;
+    border: none;
+
+    &:hover h2 button {
+      color: var(--bs-soft-blue);
+    }
+
+    .accordion-button:not(.collapsed) {
+      color: #000;
+      background-color: transparent;
+    }
+  }
+}
+
+// custom styles
+.btn.custom-btn-effect {
+  border: 2px solid transparent;
+  &:active, &:focus, &:hover {
+    box-shadow: none;
+    color: var(--color, #fff) !important;
+    background-color: #fff;
+    border: 2px solid var(--color, #fff);
+  }
+}
+
+.custom-p-styles {
+  font-size: 1rem;
+  color: map-get($theme-colors, 'grayish-blue')
+}
+
+.rectangle-right {
+  width: 80%;
+  height: 70%;
+  border-bottom-left-radius: 11rem;
+  border-top-left-radius: 11rem;
+  top: 30%;
+  z-index: -1;
+  right: -7rem;
+}
+
+.rectangle-left {
+  width: 80%;
+  height: 70%;
+  border-bottom-right-radius: 11rem;
+  border-top-right-radius: 11rem;
+  z-index: -1;
+  top: 50%;
+  left: -7rem;
+}
